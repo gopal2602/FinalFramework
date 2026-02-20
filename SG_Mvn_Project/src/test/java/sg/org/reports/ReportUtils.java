@@ -13,39 +13,36 @@ import java.io.File;
 
 public class ReportUtils extends CucumberTestRunner {
     /***********************************
-     * Method Name  : createResultFile()
+     * Method Name  : startExtentReport()
      * Purpose      : create html file for Extent Report
      ***********************************/
-    public static ExtentReports createResultFile(){
+    public static ExtentReports startExtentReport(String reportFileName){
         String resultPath = null;
         File objResultPath = null;
-        ExtentReports extent = null;
-        File objScreenshotPath = null;
+        File objScreenshot = null;
         try{
-            resultPath = ".\\target\\extent-report";
+            resultPath = System.getProperty("user.dir") + "\\target\\extent-report";
+
             objResultPath = new File(resultPath);
             if(!objResultPath.exists()){
                 objResultPath.mkdirs();
             }
 
-            objScreenshotPath = new File(resultPath+"\\screenshot");
-            if(!objScreenshotPath.exists()){
-                objScreenshotPath.mkdirs();
+            screenshotLocation = resultPath + "\\screenshot";
+            objScreenshot = new File(screenshotLocation);
+            if(!objScreenshot.exists()){
+                objScreenshot.mkdirs();
             }
-            extent = new ExtentReports(resultPath+"\\TestResults.html", false);
-            extent.addSystemInfo("UserName", System.getProperty("user.name"));
-            extent.addSystemInfo("HostName", System.getProperty("os.name"));
+
+            extent = new ExtentReports(resultPath +"\\"+ reportFileName + ".html", false);
+            extent.addSystemInfo("Host Name", System.getProperty("os.name"));
+            extent.addSystemInfo("User Name", System.getProperty("user.name"));
             extent.addSystemInfo("Environment", propData.get("environment"));
-            extent.addSystemInfo("Application Under Test", propData.get("appName"));
-            extent.loadConfig(new File(".\\extent-config.xml"));
+            extent.loadConfig(new File(System.getProperty("user.dir") + "\\extent-config.xml"));
             return extent;
         }catch(Exception e){
-            System.out.println("Exception in 'createResultFile()' method. "+e);
+            System.out.println("Exception in 'startExtentReport()' method. " + e);
             return null;
-        }finally{
-            resultPath = null;
-            objResultPath = null;
-            objScreenshotPath = null;
         }
     }
 
@@ -69,25 +66,18 @@ public class ReportUtils extends CucumberTestRunner {
      * Purpose      : after flush, write extent report to .html file
      ***********************************/
     public static String captureScreenshot(WebDriver oBrowser){
-        String screenshotPath = null;
-        File srcFile = null;
-        File destFile = null;
-        TakesScreenshot ts = null;
+        File objSrc = null;
+        File objDesc = null;
+        String fileLocation = null;
         try{
-            screenshotPath = ".\\target\\extent-report\\screenshot\\screenShot_"+ AppIndependentMethods.getDateTime("hhmmssS")+".png";
-            ts = (TakesScreenshot) oBrowser;
-            srcFile = ts.getScreenshotAs(OutputType.FILE);
-            destFile = new File(screenshotPath);
-            FileHandler.copy(srcFile, destFile);
-            return screenshotPath;
+            fileLocation = screenshotLocation + "\\screenshot_" + AppIndependentMethods.getDateTime("hhmmsS")+".png";
+            objSrc = ((TakesScreenshot) oBrowser).getScreenshotAs(OutputType.FILE);
+            objDesc = new File(fileLocation);
+            FileHandler.copy(objSrc, objDesc);
+            return fileLocation;
         }catch(Exception e){
-            System.out.println("Exception in 'captureScreenshot()' method. "+e);
+            System.out.println("Exception in 'captureScreenshot()' method. " + e);
             return null;
-        }finally{
-            screenshotPath = null;
-            srcFile = null;
-            destFile = null;
-            ts = null;
         }
     }
 

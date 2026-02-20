@@ -28,6 +28,7 @@ public class CucumberTestRunner extends AbstractTestNGCucumberTests {
     public static ExtentTest test = null;
     public static WebDriver oBrowser = null;
     public static String userCreated = null;
+    public static String screenshotLocation = null;
 
     @BeforeSuite
     public void preRequisites(){
@@ -35,7 +36,7 @@ public class CucumberTestRunner extends AbstractTestNGCucumberTests {
         try{
             propFilePath = ".\\src\\main\\resources\\QA.properties";
             propData = AppIndependentMethods.getPropData(propFilePath);
-            extent = ReportUtils.createResultFile();
+            extent = ReportUtils.startExtentReport("AutomationTestReport");
         }catch(Exception e){
             System.out.println("Exception in 'preRequisites()' method. "+e);
         }
