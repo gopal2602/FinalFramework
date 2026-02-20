@@ -12,6 +12,7 @@ import sg.org.driver.CucumberTestRunner;
 import java.io.File;
 
 public class ReportUtils extends CucumberTestRunner {
+
     /***********************************
      * Method Name  : startExtentReport()
      * Purpose      : create html file for Extent Report
@@ -116,4 +117,5 @@ public class ReportUtils extends CucumberTestRunner {
             System.out.println("Exception in 'captureScreenshot()' method. "+e);
         }
     }
+    
 }
