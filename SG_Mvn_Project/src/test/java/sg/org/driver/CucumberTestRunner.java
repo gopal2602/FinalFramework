@@ -11,7 +11,6 @@ import sg.org.reports.ReportUtils;
 import java.util.Map;
 
 @CucumberOptions(
-        tags = "@LoginTest or @UserTest",
         glue = {"sg.org.stepdefinition"},
         plugin = {
                 "pretty",
