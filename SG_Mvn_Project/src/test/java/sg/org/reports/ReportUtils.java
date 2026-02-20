@@ -117,5 +117,5 @@ public class ReportUtils extends CucumberTestRunner {
             System.out.println("Exception in 'captureScreenshot()' method. "+e);
         }
     }
-    
+
 }
