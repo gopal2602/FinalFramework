@@ -1,6 +1,6 @@
 Feature: Login Test Cases are automated using Example
 
-  @LoginTest123 @LoginSmokeTest @LoginRegressionTest
+  @LoginTest123 @LoginSmokeTest @LoginRegressionTest @Regression
  Scenario Outline: Verify Login and logout functionality
     Given Verify user launches the "<browserName>" browser
     And Verify application URL "<appURL>" loaded successful
