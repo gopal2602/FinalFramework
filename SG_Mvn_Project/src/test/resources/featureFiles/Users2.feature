@@ -1,6 +1,6 @@
 Feature: Users Test Cases are automated
 
-  @UserTest123 @UserSmokeTest @UserRegressionTest
+  @UserTest123 @UserSmokeTest @UserRegressionTest @Regression
   Scenario Outline: Verify create and delete user functionality
     Given Verify user launches the "<browserName>" browser
     And Verify application URL "<appURL>" loaded successful
